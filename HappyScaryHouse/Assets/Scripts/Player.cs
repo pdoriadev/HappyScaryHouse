@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Collector))]
 public class Player : MonoBehaviour
 {
+    private Collector Collector;
     private Rigidbody2D RB2D;
     private Vector2 MoveDir;
 
@@ -12,6 +15,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        Collector = GetComponent<Collector>();
         RB2D = GetComponent<Rigidbody2D>();
     }
     void Update()
@@ -24,4 +28,5 @@ public class Player : MonoBehaviour
     {
         RB2D.velocity = MoveDir * moveSpeed;
     }
+
 }

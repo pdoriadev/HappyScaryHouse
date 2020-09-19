@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987b22cf5b68bc541a15ef2496e470dc, type: 3}
+  m_Name: CollectableOne
+  m_EditorClassIdentifier: 
+  name: CollectableOne
+  sprite: {fileID: 21300000, guid: 4b564866c1d34354c9144cdd8624f134, type: 3}
+  set: {fileID: 11400000, guid: 05ad3b8b3217c4941b4a49098971a80b, type: 2}
