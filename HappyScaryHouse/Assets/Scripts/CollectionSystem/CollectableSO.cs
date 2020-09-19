@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "CollectableSO", menuName = "CollectableSystem/CollectableSO", order = 2)]
 public class CollectableSO : ScriptableObject
 {
     public new string name;
