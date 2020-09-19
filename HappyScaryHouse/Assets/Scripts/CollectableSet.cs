@@ -12,10 +12,6 @@ public class CollectableSet : ScriptableObject
     // Every collectable calls this on creation. 
     public void AddUncollected(CollectableMono collectable)
     {
-        for (int i = 0; i < Uncollected.Count; i++)
-        {
-            Debug.Log("num of collectables is " + i + ". Collectable is: " + collectable.gameObject.name);
-        }
         if (!Uncollected.Contains(collectable))
             Uncollected.Add(collectable);
         else Debug.LogError("attempted to add collectable " + collectable.name + " that's already been added.");

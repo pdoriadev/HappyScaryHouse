@@ -17,13 +17,11 @@ public class CollectableMono : MonoBehaviour
     } 
     private void Start()
     {
-        Debug.Log("add me plz");
         Data.set.AddUncollected(this);
     }
 
     public void OnCollect()
     {
-        Debug.Log("called");
         Data.set.AddCollected(this);
         gameObject.SetActive(false);
     }
