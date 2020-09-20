@@ -47,8 +47,7 @@ public class Player : MonoBehaviour
     }
     private void PickupWeapon(DamagerMono damager)
     {
-        Damager = GameObject.Instantiate(damager, DominantHand.transform.position, Quaternion.identity);
-        Damager.transform.parent = DominantHand.transform;
+        Damager = GameObject.Instantiate(damager, DominantHand.transform);
     }
     private void DropWeapon()
     {
