@@ -24,12 +24,15 @@ public class DamageableSO : ScriptableObject
     // - Whether the
     [SerializeField]
     private bool ShouldInstantiate = true;
-    public bool shouldInstantiate => ShouldInstantiate;
+    public bool shouldClone => ShouldInstantiate;
 
     // PD 9/19/20
-    // subscribed to by DamageableMono's OnDeath() function
-    public delegate void OnDeath();
-    public event OnDeath OnDeathEvent;
+    // subscribed to by DamageableMono callbacks
+    public delegate void onDeath();
+    public event onDeath onDeathEvent;
+    public delegate void onDamage();
+    public event onDamage onDamageEvent;
+
     #endregion
 
     private void OnEnable()
@@ -39,7 +42,7 @@ public class DamageableSO : ScriptableObject
     }
     private void Die()
     {
-        OnDeathEvent?.Invoke();
+        onDeathEvent?.Invoke();
     }
 
     public void AddAmountToHealth(int amount)
@@ -47,7 +50,7 @@ public class DamageableSO : ScriptableObject
         Debug.Log(name + " <color> TOOK " + amount + " DAMAGE </color>");
         Health += amount;
         Health = Health > MaxHealth ? MaxHealth : Health;
-        Debug.Log(Health);
+        onDamageEvent?.Invoke();
         if (Health <= 0)
             Die();
     }
