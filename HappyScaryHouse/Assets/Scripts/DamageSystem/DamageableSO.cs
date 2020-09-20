@@ -39,6 +39,7 @@ public class DamageableSO : ScriptableObject
 
     public void AddAmountToHealth(int amount)
     {
+        Debug.Log(name + " <color> TOOK " + amount + " DAMAGE </color>");
         Health += amount;
         Health = Health > MaxHealth ? MaxHealth : Health;
         Debug.Log(Health);
@@ -53,6 +54,4 @@ public class DamageableSO : ScriptableObject
     {
         Health = amount;
     }
-
-
 }
