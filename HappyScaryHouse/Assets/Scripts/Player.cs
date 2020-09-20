@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private DamagerMono Damager = default;
+    [SerializeField]
+    private GameObject DominantHand = default;
     private bool ShouldAttack = false;
     private Collector Collector;
     private Rigidbody2D RB2D;
@@ -28,8 +30,10 @@ public class Player : MonoBehaviour
         MoveDir.y = Input.GetAxisRaw("Vertical");
         ShouldAttack = Input.GetButtonDown("Fire1");
 
-        if (MoveDir.x != 0 && (DirLastFacing < MoveDir.x || DirLastFacing > MoveDir.x)) 
-            transform.localScale *= -1;
+        if(MoveDir.x > 0)
+            transform.localScale = Vector3.one;
+        else if (MoveDir.x < 0)
+            transform.localScale = -Vector3.one;
         
         DirLastFacing = MoveDir.x;
     }
@@ -39,6 +43,28 @@ public class Player : MonoBehaviour
         if (ShouldAttack && Damager != null)
         {
             Damager.Attack();
+        }
+    }
+    private void PickupWeapon(DamagerMono damager)
+    {
+        Damager = GameObject.Instantiate(damager, DominantHand.transform.position, Quaternion.identity);
+        Damager.transform.parent = DominantHand.transform;
+    }
+    private void DropWeapon()
+    {
+        
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        Pickup p = collider.GetComponent<Pickup>();
+        if (p != null)
+        {
+            DamagerMono damager = p.GetPickup().GetComponent<DamagerMono>();
+            if (damager != null)
+            {
+                PickupWeapon(damager);
+            }
         }
     }
 
