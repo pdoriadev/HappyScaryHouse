@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Collector Collector;
     private Rigidbody2D RB2D;
     private Vector2 MoveDir;
+    private float DirLastFacing;
 
     public float moveSpeed;
 
@@ -26,6 +27,11 @@ public class Player : MonoBehaviour
         MoveDir.x = Input.GetAxisRaw("Horizontal");
         MoveDir.y = Input.GetAxisRaw("Vertical");
         ShouldAttack = Input.GetButtonDown("Fire1");
+
+        if (MoveDir.x != 0 && (DirLastFacing < MoveDir.x || DirLastFacing > MoveDir.x)) 
+            transform.localScale *= -1;
+        
+        DirLastFacing = MoveDir.x;
     }
     void FixedUpdate()
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "DamagerSO", menuName = "DamageableSystem/DamagerSO", order = 3)]
+[CreateAssetMenu(fileName = "DamagerSO", menuName = "DamageSystem/DamagerSO", order = 3)]
 public class DamagerSO : ScriptableObject
 {
     [SerializeField]

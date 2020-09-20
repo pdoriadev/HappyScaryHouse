@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "DamageableSO", menuName = "DamageableSystem/DamageableSO", order = 2)]
+[CreateAssetMenu(fileName = "DamageableSO", menuName = "DamageSystem/DamageableSO", order = 2)]
 public class DamageableSO : ScriptableObject
 {
     #region ----- VARIABLES -----
@@ -20,6 +20,11 @@ public class DamageableSO : ScriptableObject
     [SerializeField]
     private DamageableSet Set = default;
     public DamageableSet set => Set;
+    // PD - 9/19/2020
+    // - Whether the
+    [SerializeField]
+    private bool ShouldInstantiate = true;
+    public bool shouldInstantiate => ShouldInstantiate;
 
     // PD 9/19/20
     // subscribed to by DamageableMono's OnDeath() function

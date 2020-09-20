@@ -27,6 +27,7 @@ public class DamageableMono : MonoBehaviour
     private void Start()
     {
         Data.set.RegisterDamageable(this, Data.faction);
+
     }
     private void OnDeath()
     {

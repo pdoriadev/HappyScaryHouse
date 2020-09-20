@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "DamageableSet", menuName = "DamageableSystem/DamageableSet", order = 1)]
+[CreateAssetMenu(fileName = "DamageableSet", menuName = "DamageSystem/DamageableSet", order = 1)]
 public class DamageableSet : ScriptableObject
 {
     private List<DamageableMono> Damageables = new List<DamageableMono>();
