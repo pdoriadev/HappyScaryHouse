@@ -16,3 +16,4 @@ MonoBehaviour:
   Damage: 1
   Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   Faction: {fileID: 11400000, guid: 1c89b15210250364194ed90b0420216f, type: 2}
+  Pickup: {fileID: 6479469565429700421, guid: 7095516fc47a2f3479f44d052e5f7585, type: 3}

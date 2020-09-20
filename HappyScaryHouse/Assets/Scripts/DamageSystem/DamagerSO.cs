@@ -16,4 +16,7 @@ public class DamagerSO : ScriptableObject
     [SerializeField]
     private FactionSO Faction = default;
     public FactionSO faction => Faction;
+    [SerializeField]
+    private GameObject Pickup = default;
+    public GameObject pickup => Pickup;
 }
