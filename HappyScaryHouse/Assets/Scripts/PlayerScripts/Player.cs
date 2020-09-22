@@ -8,9 +8,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private DamagerMono Damager = default;
+    private DamagerMono Weapon = default;
     [SerializeField]
     private GameObject DominantHand = default;
+    [SerializeField]
+    private InteractablesTracker Tracker = default;
 
     private Collector Collector;
     private Rigidbody2D RB2D;
@@ -36,18 +38,28 @@ public class Player : MonoBehaviour
         ShouldAttack = Input.GetButtonDown("Fire1");
         ShouldInteract = Input.GetButtonUp("Interact");
 
-        if (ShouldInteract && PickupInRange)
+        if (ShouldInteract)
         {
-            DamagerMono damager = PickupInRange.GetPickup().GetComponent<DamagerMono>();
-            if (damager != null)
+            IInteractable inter = Tracker.GetNearestInteractable();
+            if (inter != null)
             {
-                PickupWeapon(damager);
+                inter.Interact();
+            }
+            
+            if (PickupInRange)
+            {
+                DamagerMono damager = PickupInRange.GetPickup().GetComponent<DamagerMono>();
+                if (damager != null)
+                {
+                    PickupWeapon(damager);
+                }
+            }
+            else if (PickupInRange == false && Weapon)
+            {
+                DropWeapon();
             }
         }
-        else if (ShouldInteract && PickupInRange == false && Damager)
-        {
-            DropWeapon();
-        }
+
 
         if(MoveDir.x > 0)
             transform.localScale = Vector3.one;
@@ -64,33 +76,33 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-        RB2D.velocity = MoveDir * moveSpeed;
-        if (ShouldAttack && Damager != null)
+        RB2D.velocity = MoveDir * moveSpeed * Time.deltaTime;
+        if (ShouldAttack && Weapon != null)
         {
-            Damager.Attack();
+            Weapon.Attack();
         }
     }
     private void PickupWeapon(DamagerMono damager)
     {
         DropWeapon();
-        Damager = GameObject.Instantiate(damager, DominantHand.transform);
+        Weapon = GameObject.Instantiate(damager, DominantHand.transform);
     }
     private void DropWeapon()
     {
-        if (Damager != null)
+        if (Weapon != null)
         {
-            Pickup pToMatch = Damager.data.pickup.GetComponent<Pickup>();
+            Pickup pToMatch = Weapon.damagerSO.pickup.GetComponent<Pickup>();
             Pickup p = pToMatch.pool.TakePooledPickup(pToMatch); 
             if (p)
             {
                 p.transform.position = DropPos;
             }
             else
-                GameObject.Instantiate(Damager.data.pickup, DropPos, Quaternion.identity);
+                GameObject.Instantiate(Weapon.damagerSO.pickup, DropPos, Quaternion.identity);
 
-            Damager.gameObject.SetActive(false);   
+            Weapon.gameObject.SetActive(false);   
         }
-        Damager = null;
+        Weapon = null;
     }
 
     void OnTriggerEnter2D(Collider2D collider)

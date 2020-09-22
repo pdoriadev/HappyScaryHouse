@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class DamagerMono : MonoBehaviour
 {
     [SerializeField]
-    protected DamagerSO Data;
-    public DamagerSO data => Data;
+    protected DamagerSO DamagerSO;
+    public DamagerSO damagerSO => DamagerSO;
     public abstract void Attack();
 }

@@ -8,18 +8,18 @@ public class TrapMono : DamagerMono
     private void Awake()
     {
         SR = GetComponent<SpriteRenderer>();
-        SR.sprite = Data.sprite;
+        SR.sprite = DamagerSO.sprite;
     }
 
     DamageableMono LastHitDamageable = null;
     public override void Attack()
     {
-        LastHitDamageable.data.AddAmountToHealth(-Data.damage);
+        LastHitDamageable.damSO.AddAmountToHealth(-DamagerSO.damage);
     }
     void OnCollisionEnter2D(Collision2D collider)
     {
         DamageableMono damageable = collider.gameObject.GetComponent<DamageableMono>();
-        if(damageable && damageable.data.faction != Data.faction)
+        if(damageable && damageable.damSO.faction != DamagerSO.faction)
         {
             LastHitDamageable = damageable;
             Attack();

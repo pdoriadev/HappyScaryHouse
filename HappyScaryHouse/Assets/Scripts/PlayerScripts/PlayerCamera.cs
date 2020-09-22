@@ -19,16 +19,12 @@ public class PlayerCamera : MonoBehaviour
     {
         Cam = GetComponent<Camera>();
         if (Target == null)
-            Debug.LogError("Target is null");
-        Offset = Cam.transform.position - Target.position;
+            Target = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
 
     void LateUpdate()
     {
         Vector3 nextPos = Target.position + Offset;
         Cam.transform.position = Vector3.SmoothDamp(transform.position, nextPos, ref velocity, SmoothDampTime);
     }
-
-
 }

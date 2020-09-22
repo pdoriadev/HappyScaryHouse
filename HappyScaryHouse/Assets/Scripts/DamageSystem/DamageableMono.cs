@@ -5,8 +5,8 @@ using UnityEngine;
 public class DamageableMono : MonoBehaviour
 {
     [SerializeField]
-    private DamageableSO Data = default;
-    public DamageableSO data => Data;
+    private DamageableSO DamSo = default;
+    public DamageableSO damSO => DamSo;
     public delegate void OnDeathMono();
     public event OnDeathMono OnDeathMonoEvent;
     public delegate void onDamageMono();
@@ -14,30 +14,30 @@ public class DamageableMono : MonoBehaviour
     
     private void Awake()
     {
-        if (Data != null)
+        if (DamSo != null)
         {   
             // PD - 9/19/2020
             // To avoid directly referencing an SO, if undesired, we replace the reference with 
             // a clone of it. 
-            if (Data.shouldClone)
+            if (DamSo.shouldClone)
             {
-                DamageableSO instance = Object.Instantiate(Data);
-                Data = instance;
+                DamageableSO instance = Object.Instantiate(DamSo);
+                DamSo = instance;
             }
-            Data.onDeathEvent += OnDeath;
-            Data.onDamageEvent += OnDamage;
+            DamSo.onDeathEvent += OnDeath;
+            DamSo.onDamageEvent += OnDamage;
         }
         else Debug.LogError("MISSING DamageableSO on DamageableMono class: " + this + " for gameobject: " + gameObject);
     }
     private void Start()
     {
-        Data.set.RegisterDamageable(this, Data.faction);
+        DamSo.set.RegisterDamageable(this, DamSo.faction);
     }
     private void OnDestroy()
     {
-        Data.onDeathEvent -= OnDeath;
-        Data.onDamageEvent -= OnDamage;
-        Data.set.UnregisterDamageable(this, Data.faction);
+        DamSo.onDeathEvent -= OnDeath;
+        DamSo.onDamageEvent -= OnDamage;
+        DamSo.set.UnregisterDamageable(this, DamSo.faction);
     }
 
     private void OnDamage()
@@ -47,9 +47,6 @@ public class DamageableMono : MonoBehaviour
     private void OnDeath()
     {
         OnDeathMonoEvent?.Invoke();
-        Destroy(gameObject);
         Debug.Log(gameObject + "<color> DIED </color>");
     }
-
-
 }

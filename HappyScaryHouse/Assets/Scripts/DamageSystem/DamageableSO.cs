@@ -23,8 +23,8 @@ public class DamageableSO : ScriptableObject
     // PD - 9/19/2020
     // - Whether the
     [SerializeField]
-    private bool ShouldInstantiate = true;
-    public bool shouldClone => ShouldInstantiate;
+    private bool ShouldClone = true;
+    public bool shouldClone => ShouldClone;
 
     // PD 9/19/20
     // subscribed to by DamageableMono callbacks
@@ -40,18 +40,19 @@ public class DamageableSO : ScriptableObject
         MaxHealth = MaxHealthOnStart;
         Health = MaxHealth;   
     }
+    // 
     private void Die()
     {
         onDeathEvent?.Invoke();
     }
-
     public void AddAmountToHealth(int amount)
     {
         Debug.Log(name + " <color> TOOK " + amount + " DAMAGE </color>");
         Health += amount;
         Health = Health > MaxHealth ? MaxHealth : Health;
+        Health = Health < 0 ? 0 : Health;
         onDamageEvent?.Invoke();
-        if (Health <= 0)
+        if (Health == 0)
             Die();
     }
     public void AddToMaxHealth(int amount)

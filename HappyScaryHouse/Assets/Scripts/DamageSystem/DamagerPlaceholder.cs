@@ -8,9 +8,9 @@ public class DamagerPlaceholder : MonoBehaviour
     void OnTriggerEnter2D (Collider2D coll)
     {
         DamageableMono damageable = coll.gameObject.GetComponent<DamageableMono>();
-        if (damageable && damageable.data.faction != myFaction)
+        if (damageable && damageable.damSO.faction != myFaction)
         {
-            damageable.data.AddAmountToHealth(-1);
+            damageable.damSO.AddAmountToHealth(-1);
         }
     }
 }

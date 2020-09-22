@@ -11,7 +11,7 @@ public class MeleeWeaponMono : DamagerMono
     {
         for (int i = 0; i < DamageablesInRange.Count; i++)
         {
-            DamageablesInRange[i].data.AddAmountToHealth(-Data.damage);
+            DamageablesInRange[i].damSO.AddAmountToHealth(-DamagerSO.damage);
         }
 
         // #TODO - Play animation for attack
@@ -19,7 +19,7 @@ public class MeleeWeaponMono : DamagerMono
     void OnTriggerEnter2D(Collider2D collider)
     {
         DamageableMono damageable = collider.GetComponent<DamageableMono>();
-        if (damageable && damageable.data.faction != this.Data.faction)
+        if (damageable && damageable.damSO.faction != this.DamagerSO.faction)
         {
             if (!DamageablesInRange.Contains(damageable))
             {
