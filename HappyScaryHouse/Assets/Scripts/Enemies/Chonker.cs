@@ -59,7 +59,7 @@ public class Chonker : MonoBehaviour, IInteractable
     }
 #endregion
 
-    private void Update()
+    private void FixedUpdate()
     {
         ShootChecks();
     }

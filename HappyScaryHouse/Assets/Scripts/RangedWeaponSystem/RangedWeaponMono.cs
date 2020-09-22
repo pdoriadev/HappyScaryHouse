@@ -4,14 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class RangedWeaponMono : MonoBehaviour
 {
-
-    private Vector3 ShotDir;
-    public Vector3 shotDir => ShotDir;
-    private bool ReadyForShootInput = false;
-    public bool readyForShootInput => ReadyForShootInput;
-    private Transform TargetTrans;
-    private MonoBehaviour ShooterRef;
-
+    #region VARS
+    public delegate void OnShoot();
+    public event OnShoot onShootEvent;
+    
+    [SerializeField]
+    private LayerMask SightLayers = default;
     [SerializeField]
     private GameObject BulletPrefab = default;
     public GameObject bulletPrefab => BulletPrefab;
@@ -20,34 +18,43 @@ public class RangedWeaponMono : MonoBehaviour
     [SerializeField]
     private bool IsAutomatic = true;
     public bool isAutomatic => IsAutomatic;
-    
     // PD - 9/21/2020
-        // Shoots directly toward target position at time of shooting. If not, then will shoot direction
-        // weapon is pointed. 
+    // Shoots directly toward target position at time of shooting. If not, then will shoot direction
+    // weapon is pointed. 
     [SerializeField]
     private bool ShootAtTarget = false;
     public bool shootAtTarget => ShootAtTarget;
+    [SerializeField]
+    private float sightRange = default;
+    public float ShootingRange => sightRange;
 
+    private Vector3 ShotDir;
+    public Vector3 shotDir => ShotDir;
+    private bool CanShootAtTarget = false;
+    public bool readyForShootInput => CanShootAtTarget;
     private BulletMono BulletMono = null;
     public BulletMono bulletMono => BulletMono;
-
-    public delegate void OnShoot();
-    public event OnShoot onShootEvent;
-
+    private Transform TargetTrans;
     private Coroutine ShootingCo;
+    #endregion
+
     public void RequestShooting()
     {
-        if (!IsAutomatic)
-        {
-            Shoot();
+        if (CanSeeTarget())
+        {    
+            if (!IsAutomatic)
+            {
+                Shoot();
+            }
+            else if (IsShooting == false)
+            {
+                ShootingCo = StartCoroutine(CoShoot());
+            }
+            else 
+                Debug.LogWarning("Weapon already shooting");
         }
-        else if (IsShooting == false)
-        {
-            ShootingCo = StartCoroutine(CoShoot());
-        }
-        else 
-            Debug.LogWarning("Weapon already shooting");
     }
+
     public void CancelShooting()
     {
         if (IsShooting)
@@ -74,7 +81,6 @@ public class RangedWeaponMono : MonoBehaviour
         UpdateShotInfo();
     }
     #endregion
-
     
     private bool IsShooting = false;
     public bool isShooting => IsShooting;
@@ -103,7 +109,7 @@ public class RangedWeaponMono : MonoBehaviour
     }
     private void UpdateShotInfo()
     {
-        ReadyForShootInput = TargetTrans && IsShooting == false;
+        CanShootAtTarget = TargetTrans && IsShooting == false;
 
         if (!shootAtTarget)
         {
@@ -115,6 +121,35 @@ public class RangedWeaponMono : MonoBehaviour
                                         TargetTrans.position.y - transform.position.y)
                                         .normalized;
         }
+    }
+    private bool CanSeeTarget()
+    {
+        bool seesTarget = false;
+        if (!shootAtTarget)
+        {
+            seesTarget = true;
+        }
+        else if (TargetTrans != null)
+        {
+            int wallLayer = 8;
+            int playerLayer = 9;
+            LayerMask wallMask = 1 << wallLayer;
+            LayerMask playerMask = 1 << playerLayer;
+            SightLayers = wallMask | playerMask;
+
+            RaycastHit2D hit2D;
+            Debug.Log(shotDir);
+            hit2D = Physics2D.Raycast(transform.position, shotDir, sightRange, SightLayers);
+            if (hit2D.collider != null)
+            {
+                if (hit2D.collider.gameObject.tag == "Player")
+                {
+                    seesTarget = true;
+                }
+            }
+        }
+
+        return seesTarget;
     }
     
     void OnTriggerEnter2D(Collider2D collider)
