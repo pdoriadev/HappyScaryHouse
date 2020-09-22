@@ -71,7 +71,6 @@ public class Chonker : MonoBehaviour, IInteractable
             {
                 if (RangedWeaponMono.readyForShootInput)
                 {
-                    Debug.Log("shoot plz");
                     RangedWeaponMono.RequestShooting();
                 }
             }
@@ -79,7 +78,6 @@ public class Chonker : MonoBehaviour, IInteractable
             {
                 if (RangedWeaponMono.isShooting)
                 {
-                    Debug.Log("plz cancel");
                     RangedWeaponMono.CancelShooting();
                 }
             }

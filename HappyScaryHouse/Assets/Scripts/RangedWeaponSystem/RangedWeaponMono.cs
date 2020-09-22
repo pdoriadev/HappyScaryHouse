@@ -61,31 +61,13 @@ public class RangedWeaponMono : MonoBehaviour
     }
 
     #region UNITY_EXECUTION_ORDER_CALLBACKS
-    
-    void OnEnable()
+
+    private void Awake()
     {
         BulletMono = BulletPrefab.GetComponent<BulletMono>();
         if (BulletMono == null)
             Debug.LogError("No BulletMono on bullet prefab");
-    }
-    private void Awake()
-    {
-        ShooterRef = this;
-        if (WeaponSO != null)
-        {  
-             // PD - 9/21/2020   
-                // To avoid directly referencing an SO we replace the reference with 
-                // a clone of it. 
-            RangedWeaponSO instance = Object.Instantiate(WeaponSO);
-            WeaponSO = instance;
 
-            // WeaponSO.onShootEvent += OnShot;
-        }
-        else Debug.LogError("MISSING ScriptableObject class for gameobject: " + gameObject);
-    }
-    private void Destroy()
-    {
-        // WeaponSO.onShootEvent -= OnShot;
     }
     private void Update()
     {
@@ -99,7 +81,6 @@ public class RangedWeaponMono : MonoBehaviour
     private IEnumerator CoShoot()
     {
         IsShooting = true;
-        Debug.Log("shoooooooot");
         float t = 0;
         while (IsShooting)
         {
@@ -122,8 +103,6 @@ public class RangedWeaponMono : MonoBehaviour
     }
     private void UpdateShotInfo()
     {
-        // ReadyForShootInput = TargetTrans && weaponSO.isShooting == false;
-
         ReadyForShootInput = TargetTrans && IsShooting == false;
 
         if (!shootAtTarget)
