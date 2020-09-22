@@ -39,11 +39,9 @@ public class RangedWeaponSO : ScriptableObject
     public bool isShooting => IsShooting;
     private IEnumerator CoShoot()
     {
-        Debug.Log("co started");
         float t = 0;
         while (true)
         {
-            Debug.Log("Co iterating");
             t -= Time.deltaTime;
             if (t <= 0)
             {
@@ -59,7 +57,6 @@ public class RangedWeaponSO : ScriptableObject
     }
     public void RequestShooting(ref MonoBehaviour shooter)
     {
-        Debug.Log("Trying to shoot");
         Shooter = shooter;
         if (!IsAutomatic)
         {

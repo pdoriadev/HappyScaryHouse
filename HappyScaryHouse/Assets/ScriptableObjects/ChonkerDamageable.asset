@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 819e54a1d02afb44091007093cf7f8eb, type: 3}
   m_Name: ChonkerDamageable
   m_EditorClassIdentifier: 
-  MaxHealthOnStart: 3
+  MaxHealthOnStart: 1
   Faction: {fileID: 11400000, guid: c87ab985c271ca4499d7c72b72b96594, type: 2}
   Set: {fileID: 11400000, guid: 37b04696c61885e409c30d35b439ece3, type: 2}
-  ShouldInstantiate: 1
+  ShouldClone: 1

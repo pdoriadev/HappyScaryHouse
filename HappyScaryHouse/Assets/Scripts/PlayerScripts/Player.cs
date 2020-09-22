@@ -33,33 +33,8 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        MoveDir.x = Input.GetAxisRaw("Horizontal");
-        MoveDir.y = Input.GetAxisRaw("Vertical");
-        ShouldAttack = Input.GetButtonDown("Fire1");
-        ShouldInteract = Input.GetButtonUp("Interact");
-
-        if (ShouldInteract)
-        {
-            IInteractable inter = Tracker.GetNearestInteractable();
-            if (inter != null)
-            {
-                inter.Interact();
-            }
-            
-            if (PickupInRange)
-            {
-                DamagerMono damager = PickupInRange.GetPickup().GetComponent<DamagerMono>();
-                if (damager != null)
-                {
-                    PickupWeapon(damager);
-                }
-            }
-            else if (PickupInRange == false && Weapon)
-            {
-                DropWeapon();
-            }
-        }
-
+        InputChecks();
+        InteractChecks();
 
         if(MoveDir.x > 0)
             transform.localScale = Vector3.one;
@@ -80,6 +55,39 @@ public class Player : MonoBehaviour
         if (ShouldAttack && Weapon != null)
         {
             Weapon.Attack();
+        }
+    }
+    private void InputChecks()
+    {
+        MoveDir.x = Input.GetAxisRaw("Horizontal");
+        MoveDir.y = Input.GetAxisRaw("Vertical");
+        ShouldAttack = Input.GetButtonDown("Fire1");
+        if (Input.GetButtonDown("Interact"))
+            ShouldInteract = true;
+        else if (Input.GetButtonUp("Interact"))
+            ShouldInteract = false;
+    }
+    private void InteractChecks()
+    {
+        if (ShouldInteract)
+        {
+            IInteractable inter = Tracker.GetNearestInteractable();
+            if (inter != null)
+            {
+                inter.Interact();
+            }
+            else if (PickupInRange)
+            {
+                DamagerMono damager = PickupInRange.GetPickup().GetComponent<DamagerMono>();
+                if (damager != null)
+                {
+                    PickupWeapon(damager);
+                }
+            }
+            else if (PickupInRange == false && Weapon)
+            {
+                DropWeapon();
+            }
         }
     }
     private void PickupWeapon(DamagerMono damager)

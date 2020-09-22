@@ -5,5 +5,6 @@ using UnityEngine;
 public interface IInteractable 
 {
     void Interact();
+    void CancelInteract();
     MonoBehaviour GetMonoBehaviour();
 }

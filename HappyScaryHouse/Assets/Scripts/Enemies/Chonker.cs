@@ -10,29 +10,33 @@ public class Chonker : MonoBehaviour, IInteractable
     [SerializeField]
     private float TimeToSubdue = default;
     [SerializeField]
-    private RangedWeaponMono RangedWeaponMono;
+    private RangedWeaponMono RangedWeaponMono = default;
     private DamageableMono DamageableMono;
 
-    private bool IsSubued = false;
-    public bool isSubdued => IsSubued;
+    private bool IsSubdued = false;
+    public bool isSubdued => IsSubdued;
     private bool IsSubdueing = false;
+    private Coroutine SubdueCo;
     #endregion
 
     #region IINTERACTABLE_METHODS
-    private bool IsInteracting = false;
     public void Interact()
     {
-        if (!IsSubued)
+        if (!IsSubdued)
         {
-            if (IsInteracting)
+            if (!IsSubdueing)
             {
-                StopCoroutine(CoSubdueProcess());            
+                SubdueCo = StartCoroutine(CoSubdueProcess());            
             }
-            else
-            {
-                StartCoroutine(CoSubdueProcess());
-                IsInteracting = true;
-            }
+        }
+    }
+    public void CancelInteract()
+    {
+        if (IsSubdueing)
+        {
+            IsSubdueing = false;
+            StopCoroutine(SubdueCo);
+            SubdueCo = null;
         }
     }
     public MonoBehaviour GetMonoBehaviour()
@@ -47,38 +51,54 @@ public class Chonker : MonoBehaviour, IInteractable
         if (SR == null)
             Debug.Log("Yo where's my sprite renderer");
         DamageableMono = GetComponent<DamageableMono>();
-        DamageableMono.damSO.onDeathEvent += OnSubdued;
+        DamageableMono.OnDeathMonoEvent += OnSubdued;
     }  
     private void OnDestroy()
     {
-        DamageableMono.damSO.onDeathEvent -= OnSubdued;
+        DamageableMono.OnDeathMonoEvent -= OnSubdued;
     }
 #endregion
 
     private void Update()
     {
-        if (!IsSubued && !IsSubdueing)
+        ShootChecks();
+    }
+    private void ShootChecks()
+    {
+        if (IsSubdued == false)
         {
-            if ( RangedWeaponMono.readyForShootInput)
+            if (IsSubdueing == false)
             {
-                RangedWeaponMono.RequestShooting();
-                Debug.Log("Shoot plz");
+                if (RangedWeaponMono.readyForShootInput)
+                {
+                    Debug.Log("shoot plz");
+                    RangedWeaponMono.RequestShooting();
+                }
             }
-        }
-        else if (IsSubued || IsSubdueing)
-        {
-            RangedWeaponMono.CancelShooting();
+            else 
+            {
+                if (RangedWeaponMono.isShooting)
+                {
+                    Debug.Log("plz cancel");
+                    RangedWeaponMono.CancelShooting();
+                }
+            }
         }
     }
     private void Subdue()
     {
         DamageableMono.damSO.AddAmountToHealth(-1);
+        IsSubdued = true;
         // PD - 9/21/2020
             // #TODO - prrr animation / FX
     }
     private void OnSubdued()
     {
-        IsSubued = true;
+        Debug.Log("Is subdued");
+        if (RangedWeaponMono.isShooting)
+        {
+            RangedWeaponMono.CancelShooting();
+        }
         // PD - 9/21/2020
             // #TODO  - levitation functionality
     }

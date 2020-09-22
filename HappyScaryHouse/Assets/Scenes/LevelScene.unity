@@ -478,11 +478,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8758255603967473877, guid: 1f19ea899aea2554e8d65627b353a890,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 150
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f19ea899aea2554e8d65627b353a890, type: 3}
 --- !u!1 &1331544184
@@ -1248,6 +1243,23 @@ PrefabInstance:
       propertyPath: m_EdgeRadius
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 2011085275, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 8459144014108009054, guid: 36e7254fa83a28c428754036fd273389,
+        type: 3}
+    - target: {fileID: 2011085275, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558, type: 3}
+      propertyPath: FireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011085275, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558, type: 3}
+      propertyPath: ShootToTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011085275, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558, type: 3}
+      propertyPath: ShootAtTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7756087846413512394, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558,
         type: 3}
       propertyPath: m_Name
@@ -1266,7 +1278,7 @@ PrefabInstance:
     - target: {fileID: 7756087846413512395, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.8007812
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7756087846413512395, guid: 33bc6e8bdd5e6704e9ef61ee50a9a558,
         type: 3}
