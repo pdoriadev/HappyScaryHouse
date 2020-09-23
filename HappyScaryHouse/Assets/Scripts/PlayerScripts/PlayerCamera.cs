@@ -13,11 +13,12 @@ public class PlayerCamera : MonoBehaviour
     private float SmoothDampTime = 0.1f;
     [SerializeField]
     private float LookAheadDist = default;
+    [SerializeField]
+    private float MinDist = 0.0005f;
     private Vector3 Velocity = Vector3.zero;
     private Vector3 LookAheadDir;
     private Vector3 TargetLastPos;
-    [SerializeField]
-    private float Buffer = 2;
+
 
     void Awake()
     {
@@ -33,7 +34,7 @@ public class PlayerCamera : MonoBehaviour
         float distFromTarget = new Vector2(Target.position.x - transform.position.x,
                                              Target.position.y - transform.position.y)
                                              .sqrMagnitude;
-        if (/*LookAheadDir.sqrMagnitude > Buffer &&*/ Mathf.Abs(distFromTarget) > 0.005f)
+        if (Mathf.Abs(distFromTarget) > MinDist)
         {
             if (LookDistPercentage < 1)
                 LookDistPercentage += Time.fixedDeltaTime;

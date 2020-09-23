@@ -1798,21 +1798,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4404459428714423851, guid: 47e4fee274eda9c4bb80b54c95a87344,
-        type: 3}
-      propertyPath: SmoothDampTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404459428714423851, guid: 47e4fee274eda9c4bb80b54c95a87344,
-        type: 3}
-      propertyPath: LookAheadDist
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4404459428714423851, guid: 47e4fee274eda9c4bb80b54c95a87344,
-        type: 3}
-      propertyPath: Buffer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4404459428714423852, guid: 47e4fee274eda9c4bb80b54c95a87344,
         type: 3}
       propertyPath: m_Name

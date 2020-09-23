@@ -92,6 +92,8 @@ MonoBehaviour:
   Target: {fileID: 0}
   Offset: {x: 0, y: 0, z: -10}
   SmoothDampTime: 0.5
+  LookAheadDist: 5
+  Buffer: 1
 --- !u!81 &4404459428714423855
 AudioListener:
   m_ObjectHideFlags: 0
