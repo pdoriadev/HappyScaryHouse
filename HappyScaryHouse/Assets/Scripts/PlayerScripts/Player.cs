@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-        RB2D.velocity = MoveDir * moveSpeed * Time.deltaTime;
+        RB2D.velocity = MoveDir * moveSpeed * Time.fixedDeltaTime;
         if (ShouldAttack && Weapon != null)
         {
             Weapon.Attack();

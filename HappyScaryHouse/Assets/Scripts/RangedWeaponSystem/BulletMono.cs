@@ -11,6 +11,12 @@ public class BulletMono : DamagerMono
     private Vector2 ShotDir;
     private Rigidbody2D RB2D;
 
+
+    public override void Attack()
+    {
+        // instantiate boom effect here.
+        gameObject.SetActive(false);
+    }
     private void Awake()
     {
         RB2D = GetComponent<Rigidbody2D>();
@@ -25,11 +31,6 @@ public class BulletMono : DamagerMono
     {
         ShotDir = shotDir;
     }
-    public override void Attack()
-    {
-        // instantiate boom effect here.
-        gameObject.SetActive(false);
-    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -42,6 +43,7 @@ public class BulletMono : DamagerMono
                 Attack();
             }
         }
+        gameObject.SetActive(false);
     }
 }
 

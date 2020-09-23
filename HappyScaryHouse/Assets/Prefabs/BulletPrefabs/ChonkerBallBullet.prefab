@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8459144014108009048}
   - component: {fileID: 8459144014108009049}
   - component: {fileID: 8459144014108009050}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ChonkerBallBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
