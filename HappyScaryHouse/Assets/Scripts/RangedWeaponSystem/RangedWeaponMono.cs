@@ -138,7 +138,6 @@ public class RangedWeaponMono : MonoBehaviour
             SightLayers = wallMask | playerMask;
 
             RaycastHit2D hit2D;
-            Debug.Log(shotDir);
             hit2D = Physics2D.Raycast(transform.position, shotDir, sightRange, SightLayers);
             if (hit2D.collider != null)
             {

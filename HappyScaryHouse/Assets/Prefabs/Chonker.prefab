@@ -44,7 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08f18f3d65e6eb4ca9736729bc5dd13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponSO: {fileID: 11400000, guid: 19cd4d15949339d418815fe1ff091bca, type: 2}
+  SightLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  BulletPrefab: {fileID: 0}
+  FireRate: 0
+  IsAutomatic: 1
+  ShootAtTarget: 0
+  sightRange: 0
 --- !u!58 &2011085274
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -121,8 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837384449457caa4089ab5f360b4371d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SR: {fileID: 7756087847063786893}
   TimeToSubdue: 2
+  SR: {fileID: 7756087847063786893}
+  LevitationTarget: {fileID: 0}
+  LevitationTime: 0
   RangedWeaponMono: {fileID: 2011085275}
 --- !u!61 &1380460135
 BoxCollider2D:
@@ -137,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.00000011920929, y: -0.014046669}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -148,8 +157,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0.18
+  m_Size: {x: 1.3090227, y: 1.4213943}
+  m_EdgeRadius: 0.01
 --- !u!1 &7756087847063786931
 GameObject:
   m_ObjectHideFlags: 0

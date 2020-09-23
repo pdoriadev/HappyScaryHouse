@@ -6,9 +6,13 @@ public class Chonker : MonoBehaviour, IInteractable
 {
     #region VARIABLES
     [SerializeField]
+    private float TimeToSubdue = default;
+    [SerializeField]
     private SpriteRenderer SR = default;
     [SerializeField]
-    private float TimeToSubdue = default;
+    private Transform LevitationTarget = default;
+    [SerializeField]
+    private float LevitationSpeed = default;
     [SerializeField]
     private RangedWeaponMono RangedWeaponMono = default;
     private DamageableMono DamageableMono;
@@ -83,6 +87,7 @@ public class Chonker : MonoBehaviour, IInteractable
             }
         }
     }
+#region SUBDUE METHODS AND COROUTINE
     private void Subdue()
     {
         DamageableMono.damSO.AddAmountToHealth(-1);
@@ -97,8 +102,8 @@ public class Chonker : MonoBehaviour, IInteractable
         {
             RangedWeaponMono.CancelShooting();
         }
-        // PD - 9/21/2020
-            // #TODO  - levitation functionality
+        Levitate();
+
     }
     private IEnumerator CoSubdueProcess()
     {
@@ -116,4 +121,48 @@ public class Chonker : MonoBehaviour, IInteractable
             yield return null;
         }
     }
+#endregion
+
+#region LEVITATION FUNCTIONALITY
+    private bool IsLevitating = false;
+    private bool HasLevitated = false;
+    private Coroutine LevitateCo;
+    private void Levitate()
+    {
+        if (!IsLevitating && !HasLevitated)
+        {
+            LevitateCo = StartCoroutine(CoLevitate());
+        }
+        else Debug.LogWarning("Chonker already levitating or already levitated.");
+
+        // PD - 9/22/2020
+            // #TODO  - levitation FX
+    }
+    private void OnFinishedLevitate()
+    {
+        Debug.Log("Finished levitating");
+        // PD - 9/22/2020
+            // #TODO  - finished levitation FX
+    }
+    private IEnumerator CoLevitate()
+    {   
+        Vector3 velocity = Vector3.zero;
+        float dist = Vector2.Distance(transform.position, LevitationTarget.position);
+        float s = dist / ( LevitationSpeed);
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+
+            transform.position = Vector3.SmoothDamp(transform.position, LevitationTarget.position, ref velocity, s);
+            
+            if (Mathf.Abs(LevitationTarget.position.x - transform.position.x) < 0.075f)
+            {
+                HasLevitated = true;
+                IsLevitating = false;
+                OnFinishedLevitate();
+                StopCoroutine(LevitateCo);
+            }
+        }
+    }
+    #endregion
 }
