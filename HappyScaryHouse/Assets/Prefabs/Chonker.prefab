@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08f18f3d65e6eb4ca9736729bc5dd13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SightLayers:
-    serializedVersion: 2
-    m_Bits: 0
   BulletPrefab: {fileID: 0}
   FireRate: 0
   IsAutomatic: 1
@@ -131,7 +128,7 @@ MonoBehaviour:
   TimeToSubdue: 2
   SR: {fileID: 7756087847063786893}
   LevitationTarget: {fileID: 0}
-  LevitationTime: 0
+  LevitationSpeed: 0
   RangedWeaponMono: {fileID: 2011085275}
 --- !u!61 &1380460135
 BoxCollider2D:
@@ -169,6 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7756087847063786892}
   - component: {fileID: 7756087847063786893}
+  - component: {fileID: 126719793131011288}
   m_Layer: 0
   m_Name: SR
   m_TagString: Untagged
@@ -229,7 +227,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 729fffdbba6b36a42b61dea5e8e46002, type: 3}
+  m_Sprite: {fileID: 4055878713560188521, guid: 65ecadda228a3a44383b737b170dd9c2,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -240,3 +239,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &126719793131011288
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7756087847063786931}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3236419313824bc42a207fcafee77e30, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

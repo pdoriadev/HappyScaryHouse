@@ -44,12 +44,12 @@ public class Player : MonoBehaviour
         RB2D = GetComponent<Rigidbody2D>();
         KidAnimator = GetComponentInChildren<Animator>();
         DamageableMono.onDamageMonoEvent += OnDamaged;
-        DamageableMono.OnDeathMonoEvent += OnDeath;
+        DamageableMono.onDeathMonoEvent += OnDeath;
     }
     void OnDestroy()
     {
         DamageableMono.onDamageMonoEvent -= OnDamaged;
-        DamageableMono.OnDeathMonoEvent -= OnDeath;
+        DamageableMono.onDeathMonoEvent -= OnDeath;
     }
     void Update()
     {
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
         if(MoveDir.x > 0)
             transform.localScale = -Vector2.right + Vector2.up;
-        else if (MoveDir.x < 0)
+        else if (MoveDir.x < 0 )
             transform.localScale = Vector2.right + Vector2.up;
         
         if (MoveDir.x != 0)
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         if (MoveDir.y!= 0)
             DirLastFacing = MoveDir.y;
 
-        KidAnimator.SetFloat("Horizontal", Mathf.Abs(MoveDir.x));
+        KidAnimator.SetFloat("Movement", Mathf.Abs(MoveDir.x) + Mathf.Abs(MoveDir.y));
 
         DropPos = transform.position;
         DropPos = new Vector3(MoveDir.x + transform.position.y, MoveDir.y + transform.position.y, transform.position.z);
@@ -175,17 +175,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    // private IEnumerator CoHealthBar()
-    // {
-
-    //     float fillAmount =  healthBar.
-    //     while (true)
-    //     {
-            
-    //     }
-
-    // }
 
 
 }

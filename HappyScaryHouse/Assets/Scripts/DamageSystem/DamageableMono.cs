@@ -8,7 +8,7 @@ public class DamageableMono : MonoBehaviour
     private DamageableSO DamSo = default;
     public DamageableSO damSO => DamSo;
     public delegate void OnDeathMono();
-    public event OnDeathMono OnDeathMonoEvent;
+    public event OnDeathMono onDeathMonoEvent;
     public delegate void onDamageMono();
     public event onDamageMono onDamageMonoEvent;
     
@@ -46,7 +46,7 @@ public class DamageableMono : MonoBehaviour
     }
     private void OnDeath()
     {
-        OnDeathMonoEvent?.Invoke();
+        onDeathMonoEvent?.Invoke();
         Debug.Log(gameObject + "<color> DIED </color>");
     }
 }

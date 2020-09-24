@@ -8,6 +8,8 @@ public class RangedWeaponMono : MonoBehaviour
     public delegate void OnShoot();
     public event OnShoot onShootEvent;
     [SerializeField]
+    public Transform ShootTransform = default;
+    [SerializeField]
     private GameObject BulletPrefab = default;
     public GameObject bulletPrefab => BulletPrefab;
     [SerializeField]
@@ -99,7 +101,14 @@ public class RangedWeaponMono : MonoBehaviour
     }
     protected virtual void Shoot()
     {
-        GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet;
+        if (ShootTransform)
+        {
+            bullet = GameObject.Instantiate(bulletPrefab, ShootTransform.position, Quaternion.identity);
+        }
+        else 
+            bullet = GameObject.Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            
         BulletMono bMono = bullet.GetComponent<BulletMono>();
         bMono.ChangeShotDir(shotDir);
         

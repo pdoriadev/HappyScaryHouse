@@ -22,6 +22,7 @@ public class Chonker : MonoBehaviour, IInteractable
     public bool isSubdued => IsSubdued;
     private bool IsSubdueing = false;
     private Coroutine SubdueCo;
+    private Animator FatCatAnimator;
     #endregion
 
     #region IINTERACTABLE_METHODS
@@ -56,11 +57,14 @@ public class Chonker : MonoBehaviour, IInteractable
         if (SR == null)
             Debug.Log("Yo where's my sprite renderer");
         DamageableMono = GetComponent<DamageableMono>();
-        DamageableMono.OnDeathMonoEvent += OnSubdued;
+        FatCatAnimator = GetComponentInChildren<Animator>();
+        RangedWeaponMono.onShootEvent += OnShoot;
+        DamageableMono.onDeathMonoEvent += OnSubdued;
     }  
     private void OnDestroy()
     {
-        DamageableMono.OnDeathMonoEvent -= OnSubdued;
+        RangedWeaponMono.onShootEvent -= OnShoot;
+        DamageableMono.onDeathMonoEvent -= OnSubdued;
     }
 #endregion
 
@@ -88,6 +92,31 @@ public class Chonker : MonoBehaviour, IInteractable
             }
         }
     }
+
+#region OnShootFunctionality
+    private Coroutine OnShootCo;
+    private void OnShoot()
+    {
+        Debug.Log("shoot");
+        FatCatAnimator.SetBool("IsShooting", true);
+        OnShootCo = StartCoroutine(CoOnShoot());
+    }
+    private IEnumerator CoOnShoot()
+    {
+        float t = 0;
+        while (true)
+        {
+            if (t > 0.4f)
+            {
+                FatCatAnimator.SetBool("IsShooting", false);
+                StopCoroutine(OnShootCo);
+            }
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+#endregion
+
 #region SUBDUE METHODS AND COROUTINE
     private void Subdue()
     {
