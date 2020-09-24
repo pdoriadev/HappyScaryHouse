@@ -1,35 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Collector))]
 public class Player : MonoBehaviour
 {
+    #region VARS
+    public float moveSpeed;
+    [SerializeField]
+    private SpriteRenderer SR = default;
     [SerializeField]
     private DamagerMono Weapon = default;
     [SerializeField]
     private GameObject DominantHand = default;
     [SerializeField]
     private InteractablesTracker Tracker = default;
-
     private Collector Collector;
+    private DamageableMono DamageableMono;
+    private Pickup PickupInRange = null;
     private Rigidbody2D RB2D;
     private bool ShouldAttack = false;
     private bool ShouldInteract = false;
     private Vector2 MoveDir;
     private Vector3 DropPos;
     private float DirLastFacing;
+    private bool JustDamaged = false;
+    private float DamagedTime = 0;
+    private Color NormalColor;
 
-    private Pickup PickupInRange = null;
-
-    public float moveSpeed;
+#endregion
 
     void Awake()
     {
         Collector = GetComponent<Collector>();
+        DamageableMono = GetComponent<DamageableMono>();
         RB2D = GetComponent<Rigidbody2D>();
+        DamageableMono.onDamageMonoEvent += OnDamaged;
+        DamageableMono.OnDeathMonoEvent += OnDeath;
+    }
+    void OnDestroy()
+    {
+        DamageableMono.onDamageMonoEvent -= OnDamaged;
+        DamageableMono.OnDeathMonoEvent -= OnDeath;
     }
     void Update()
     {
@@ -48,6 +63,16 @@ public class Player : MonoBehaviour
 
         DropPos = transform.position;
         DropPos = new Vector3(MoveDir.x + transform.position.y, MoveDir.y + transform.position.y, transform.position.z);
+
+
+        if (JustDamaged)
+        {
+            DamagedTime += Time.deltaTime;
+            if (DamagedTime > 0.1f)
+            {
+                SR.color = NormalColor;
+            }
+        }
     }
     void FixedUpdate()
     {
@@ -111,6 +136,17 @@ public class Player : MonoBehaviour
             Weapon.gameObject.SetActive(false);   
         }
         Weapon = null;
+    }
+    private void OnDamaged()
+    {
+        NormalColor = SR.color;
+        JustDamaged = true;
+        SR.color = Color.red;
+        DamagedTime = 0;
+    }
+    private void OnDeath()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
     }
 
     void OnTriggerEnter2D(Collider2D collider)

@@ -15,4 +15,4 @@ MonoBehaviour:
   MaxHealthOnStart: 3
   Faction: {fileID: 11400000, guid: 1c89b15210250364194ed90b0420216f, type: 2}
   Set: {fileID: 11400000, guid: 37b04696c61885e409c30d35b439ece3, type: 2}
-  ShouldInstantiate: 0
+  ShouldClone: 0

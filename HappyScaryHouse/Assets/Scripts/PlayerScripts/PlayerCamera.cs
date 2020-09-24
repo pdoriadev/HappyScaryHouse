@@ -34,7 +34,7 @@ public class PlayerCamera : MonoBehaviour
         float distFromTarget = new Vector2(Target.position.x - transform.position.x,
                                              Target.position.y - transform.position.y)
                                              .sqrMagnitude;
-        if (Mathf.Abs(distFromTarget) > MinDist)
+        if (Mathf.Abs(distFromTarget) > Mathf.Abs(MinDist))
         {
             if (LookDistPercentage < 1)
                 LookDistPercentage += Time.fixedDeltaTime;
