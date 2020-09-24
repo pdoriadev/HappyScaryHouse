@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[SelectionBase]
 [RequireComponent(typeof(DamageableMono))]
 public class Chonker : MonoBehaviour, IInteractable
 {

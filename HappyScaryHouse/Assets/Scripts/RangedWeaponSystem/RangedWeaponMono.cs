@@ -7,9 +7,6 @@ public class RangedWeaponMono : MonoBehaviour
     #region VARS
     public delegate void OnShoot();
     public event OnShoot onShootEvent;
-    
-    [SerializeField]
-    private LayerMask SightLayers = default;
     [SerializeField]
     private GameObject BulletPrefab = default;
     public GameObject bulletPrefab => BulletPrefab;
@@ -28,6 +25,7 @@ public class RangedWeaponMono : MonoBehaviour
     private float sightRange = default;
     public float ShootingRange => sightRange;
 
+    private LayerMask SightLayers;
     private Vector3 ShotDir;
     public Vector3 shotDir => ShotDir;
     private bool CanShootAtTarget = false;

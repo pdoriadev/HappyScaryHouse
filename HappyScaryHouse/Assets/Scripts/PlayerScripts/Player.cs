@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpriteRenderer SR = default;
     [SerializeField]
+    private Image healthBar = default;
+    [SerializeField]
     private DamagerMono Weapon = default;
     [SerializeField]
     private GameObject DominantHand = default;
@@ -20,6 +23,7 @@ public class Player : MonoBehaviour
     private InteractablesTracker Tracker = default;
     private Collector Collector;
     private DamageableMono DamageableMono;
+    private Animator KidAnimator;
     private Pickup PickupInRange = null;
     private Rigidbody2D RB2D;
     private bool ShouldAttack = false;
@@ -38,6 +42,7 @@ public class Player : MonoBehaviour
         Collector = GetComponent<Collector>();
         DamageableMono = GetComponent<DamageableMono>();
         RB2D = GetComponent<Rigidbody2D>();
+        KidAnimator = GetComponentInChildren<Animator>();
         DamageableMono.onDamageMonoEvent += OnDamaged;
         DamageableMono.OnDeathMonoEvent += OnDeath;
     }
@@ -52,14 +57,16 @@ public class Player : MonoBehaviour
         InteractChecks();
 
         if(MoveDir.x > 0)
-            transform.localScale = Vector3.one;
+            transform.localScale = -Vector2.right + Vector2.up;
         else if (MoveDir.x < 0)
-            transform.localScale = -Vector3.one;
+            transform.localScale = Vector2.right + Vector2.up;
         
         if (MoveDir.x != 0)
             DirLastFacing = MoveDir.x;
         if (MoveDir.y!= 0)
             DirLastFacing = MoveDir.y;
+
+        KidAnimator.SetFloat("Horizontal", Mathf.Abs(MoveDir.x));
 
         DropPos = transform.position;
         DropPos = new Vector3(MoveDir.x + transform.position.y, MoveDir.y + transform.position.y, transform.position.z);
@@ -169,6 +176,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    // private IEnumerator CoHealthBar()
+    // {
+
+    //     float fillAmount =  healthBar.
+    //     while (true)
+    //     {
+            
+    //     }
+
+    // }
 
 
 }
