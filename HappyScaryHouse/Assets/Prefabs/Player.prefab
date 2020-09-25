@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 777705918}
   - component: {fileID: 777705920}
   - component: {fileID: 777705919}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: InteractablesTracker
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8758255603896014257}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DominantHand
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -103,8 +103,8 @@ GameObject:
   - component: {fileID: 8758255603967473873}
   - component: {fileID: 8758255603967473886}
   - component: {fileID: 8758255603967473872}
-  - component: {fileID: 8758255603967473875}
-  m_Layer: 0
+  - component: {fileID: 756561779}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -140,10 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125ca5142a9b691409669ab5b70b7e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 150
+  SR: {fileID: 8758255604221658485}
   Weapon: {fileID: 0}
   DominantHand: {fileID: 8758255603896014256}
   Tracker: {fileID: 777705920}
-  moveSpeed: 150
 --- !u!114 &8758255603967473873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +191,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &8758255603967473875
-CircleCollider2D:
+--- !u!70 &756561779
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -204,8 +205,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.48
+  m_Size: {x: 1.15, y: 2.27}
+  m_Direction: 0
 --- !u!1 &8758255604221658487
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +217,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8758255604221658484}
   - component: {fileID: 8758255604221658485}
-  m_Layer: 0
+  - component: {fileID: 1538357278}
+  m_Layer: 9
   m_Name: sr
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -232,7 +234,7 @@ Transform:
   m_GameObject: {fileID: 8758255604221658487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.5236, y: 5.5236, z: 5.5236}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8758255603967473874}
   m_RootOrder: 0
@@ -276,8 +278,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.61877, g: 0.8178692, b: 0.9716981, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c6c32bb0ba43bc7428edfe25b7caa508, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -287,3 +289,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1538357278
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758255604221658487}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b16097b6618291d4e8e936269c364bef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpriteRenderer SR = default;
     [SerializeField]
-    private Image healthBar = default;
+    private GameObject[] HealthHearts = default;
     [SerializeField]
     private DamagerMono Weapon = default;
     [SerializeField]
@@ -31,8 +31,6 @@ public class Player : MonoBehaviour
     private Vector2 MoveDir;
     private Vector3 DropPos;
     private float DirLastFacing;
-    private bool JustDamaged = false;
-    private float DamagedTime = 0;
     private Color NormalColor;
 
 #endregion
@@ -40,9 +38,13 @@ public class Player : MonoBehaviour
     void Awake()
     {
         Collector = GetComponent<Collector>();
-        DamageableMono = GetComponent<DamageableMono>();
         RB2D = GetComponent<Rigidbody2D>();
         KidAnimator = GetComponentInChildren<Animator>();
+
+    }
+    void Start()
+    {       
+        DamageableMono = GetComponent<DamageableMono>();
         DamageableMono.onDamageMonoEvent += OnDamaged;
         DamageableMono.onDeathMonoEvent += OnDeath;
     }
@@ -71,15 +73,6 @@ public class Player : MonoBehaviour
         DropPos = transform.position;
         DropPos = new Vector3(MoveDir.x + transform.position.y, MoveDir.y + transform.position.y, transform.position.z);
 
-
-        if (JustDamaged)
-        {
-            DamagedTime += Time.deltaTime;
-            if (DamagedTime > 0.1f)
-            {
-                SR.color = NormalColor;
-            }
-        }
     }
     void FixedUpdate()
     {
@@ -147,13 +140,46 @@ public class Player : MonoBehaviour
     private void OnDamaged()
     {
         NormalColor = SR.color;
-        JustDamaged = true;
-        SR.color = Color.red;
-        DamagedTime = 0;
+        SR.color = Color.blue;
+
+        for (int i = HealthHearts.Length - 1; i >= 0; i--)
+        {
+            HealthHearts[i].GetComponent<Image>().color = Color.blue;
+        }
+
+        OnDamagedCo = StartCoroutine(CoOnDamaged());
+    }
+    private Coroutine OnDamagedCo;
+    private IEnumerator CoOnDamaged()
+    {
+        float DamagedTime = 0;
+        bool HeartFaded = false;
+        while (true)
+        {
+            DamagedTime += Time.deltaTime;
+            if (DamagedTime > 0.1f)
+            {
+                for (int i = HealthHearts.Length - 1; i >= 0 ; i--)
+                {
+                    Image heart = HealthHearts[i].GetComponent<Image>();
+                    heart.color = NormalColor;
+                    if (HeartFaded == false && heart.IsActive())
+                    {
+                        Debug.Log("bye bye heart");
+                        HeartFaded = true;
+                        heart.enabled = false;
+                    }   
+                }
+                SR.color = NormalColor;
+                StopCoroutine(OnDamagedCo);
+            }
+
+            yield return null;
+        }
     }
     private void OnDeath()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        SceneManager.LoadScene(0);
     }
 
     void OnTriggerEnter2D(Collider2D collider)

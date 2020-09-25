@@ -97,7 +97,6 @@ public class Chonker : MonoBehaviour, IInteractable
     private Coroutine OnShootCo;
     private void OnShoot()
     {
-        Debug.Log("shoot");
         FatCatAnimator.SetBool("IsShooting", true);
         OnShootCo = StartCoroutine(CoOnShoot());
     }

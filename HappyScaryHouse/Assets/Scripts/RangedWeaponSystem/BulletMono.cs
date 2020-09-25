@@ -39,7 +39,7 @@ public class BulletMono : DamagerMono
         {
             if (dam.damSO.faction != DamagerSO.faction)
             {
-                dam.damSO.AddAmountToHealth(DamagerSO.damage);
+                dam.damSO.AddAmountToHealth(-DamagerSO.damage);
                 Attack();
             }
         }
