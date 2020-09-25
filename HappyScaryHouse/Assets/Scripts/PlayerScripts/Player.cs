@@ -165,7 +165,6 @@ public class Player : MonoBehaviour
                     heart.color = NormalColor;
                     if (HeartFaded == false && heart.IsActive())
                     {
-                        Debug.Log("bye bye heart");
                         HeartFaded = true;
                         heart.enabled = false;
                     }   

@@ -47,6 +47,5 @@ public class DamageableMono : MonoBehaviour
     private void OnDeath()
     {
         onDeathMonoEvent?.Invoke();
-        Debug.Log(gameObject + "<color> DIED </color>");
     }
 }

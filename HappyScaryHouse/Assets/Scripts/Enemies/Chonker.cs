@@ -126,7 +126,6 @@ public class Chonker : MonoBehaviour, IInteractable
     }
     private void OnSubdued()
     {
-        Debug.Log("Is subdued");
         if (RangedWeaponMono.isShooting)
         {
             RangedWeaponMono.CancelShooting();
