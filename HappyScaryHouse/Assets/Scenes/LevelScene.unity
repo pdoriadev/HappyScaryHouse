@@ -45143,6 +45143,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4404459428714423848, guid: 47e4fee274eda9c4bb80b54c95a87344,
+        type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4404459428714423849, guid: 47e4fee274eda9c4bb80b54c95a87344,
         type: 3}
       propertyPath: m_LocalPosition.x
