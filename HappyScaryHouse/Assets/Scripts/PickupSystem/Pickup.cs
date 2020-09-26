@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+[SelectionBase]
 [RequireComponent(typeof(Collider2D))]
 public class Pickup : MonoBehaviour
 {

@@ -13,6 +13,7 @@ public class Granny : MonoBehaviour, IInteractable
     }
     public void CancelInteract()
     {
+        Debug.Log("cancel");
         Animator.SetBool("IsTalking", false);
     }
     public MonoBehaviour GetMonoBehaviour()
