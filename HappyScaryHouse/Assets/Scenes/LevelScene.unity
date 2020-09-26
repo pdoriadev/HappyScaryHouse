@@ -1162,6 +1162,41 @@ PrefabInstance:
       propertyPath: m_LightType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_ShapeLightParametricSides
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_BlendStyleIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_AlphaBlendOnOverlap
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 876197952924125475, guid: 1f19ea899aea2554e8d65627b353a890,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8758255603967473874, guid: 1f19ea899aea2554e8d65627b353a890,
         type: 3}
       propertyPath: m_LocalPosition.x
