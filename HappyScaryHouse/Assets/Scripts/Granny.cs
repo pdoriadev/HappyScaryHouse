@@ -9,11 +9,11 @@ public class Granny : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-
+        Animator.SetBool("IsTalking", true);
     }
     public void CancelInteract()
     {
-
+        Animator.SetBool("IsTalking", false);
     }
     public MonoBehaviour GetMonoBehaviour()
     {

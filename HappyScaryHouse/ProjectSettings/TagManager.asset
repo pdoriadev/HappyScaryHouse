@@ -16,8 +16,8 @@ TagManager:
   - RoomWall
   - Player
   - Bullet
-  - 
-  - 
+  - Ground
+  - PlayerFeet
   - 
   - 
   - 

@@ -47,6 +47,15 @@ TextureImporter:
   - first:
       213: 8941355374054607093
     second: Grandma_idle_14
+  - first:
+      213: -7969425402687581934
+    second: Grandma_idle_15
+  - first:
+      213: -2022526109136414644
+    second: Grandma_idle_16
+  - first:
+      213: 2565476140303782253
+    second: Grandma_idle_17
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
