@@ -52,7 +52,6 @@ public class Patroller : MonoBehaviour
         }
         newPos = Vector3.SmoothDamp(transform.position, TargetPoint.position, ref Velocity, smoothTime) ;
 
-        Debug.Log(newPos);
         transform.position = newPos;
 
  
