@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Patroller : MonoBehaviour
 {
-    public float curveStrength = 10;
     public float minDist = 2;
     public float smoothTime = 1;
     [SerializeField]
