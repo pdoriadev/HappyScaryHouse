@@ -15,11 +15,13 @@ public class TilemapShadows : MonoBehaviour
 {
     [SerializeField]
     private GameObject ShadowCastersPrefab = default;
+    [SerializeField]
     private List<GameObject> ShadowCasters = new List<GameObject>();
     public List<GameObject> shadowCasters => ShadowCasters;
     private Tilemap Tilemap = null;
     private TilemapRenderer TilemapRenderer = null;
 
+    private List<Vector3> filledTiles = new List<Vector3>();
     public void GenerateShadowCasters()
     {
         if (Tilemap == null)
@@ -31,29 +33,29 @@ public class TilemapShadows : MonoBehaviour
             TilemapRenderer = GetComponent<TilemapRenderer>();
         }
 
-        if (ShadowCasters.Count != 0)
-        {
-            RemovePreviouslyGenerated();
-        }
+        DestroyPreviouslyGenerated();
 
-        // Generate
-        List<Vector3> filledTiles = new List<Vector3>();
-
+        filledTiles.Clear();
+        filledTiles.TrimExcess();
         foreach (Vector3Int pos in Tilemap.cellBounds.allPositionsWithin)
         {   
             Vector3Int localPlace = new Vector3Int(pos.x, pos.y, pos.z);
             if (Tilemap.HasTile(localPlace))
             {
-                Vector3 place = Tilemap.CellToWorld(localPlace);
+                Vector3 place = Tilemap.GetCellCenterWorld(localPlace);
                 filledTiles.Add(place);
             }
         }
+        Debug.Log("number of tiles in tilemap: " + filledTiles.Count);
 
+        int n = 0;
         for (int i = 0; i < filledTiles.Count; i++ )
         {
-            if (IsEdgeTile(ConvertV3toV3Int(filledTiles[i])))
+            if (IsEdgeTile((filledTiles[i])))
             {
+                n++;
                 GameObject casterGO = GameObject.Instantiate(ShadowCastersPrefab, filledTiles[i], Quaternion.identity);
+                casterGO.transform.localScale = Vector3.Scale(casterGO.transform.localScale, Tilemap.cellSize);
                 casterGO.transform.SetParent(gameObject.transform);
 
                 ShadowCaster2D caster = casterGO.GetComponent<ShadowCaster2D>();
@@ -78,49 +80,56 @@ public class TilemapShadows : MonoBehaviour
                     }
                 }
 
-
-
                 ShadowCasters.Add(casterGO);
                 NameShadowCaster(ref casterGO, casterSR.sortingLayerName);
 
             }
         }
+        Debug.Log(n + " shadow casters generated");
     }
-    private void RemovePreviouslyGenerated()
+    private void DestroyPreviouslyGenerated()
     {
+        ShadowCasters.TrimExcess();
         GameObject casterGO = null;
+        int n = 0;
         for (int i = ShadowCasters.Count - 1; i >= 0; i--)
         {
+            n++;
             casterGO = ShadowCasters[i];
             ShadowCasters.RemoveAt(i);
             DestroyImmediate(casterGO);
         }
+        // ShadowCasters.Clear();
+        ShadowCasters.TrimExcess();
+
+        Debug.Log(n + " shadowcaster gameobjects destroyed");
     }
     private void NameShadowCaster(ref GameObject casterGO, string sortingLayerName)
     {
         casterGO.name = "CasterGO_" + sortingLayerName + "_" 
-            + ShadowCasters.IndexOf(casterGO) + "_" + ConvertV3toV3Int(casterGO.transform.position);
+            + ShadowCasters.IndexOf(casterGO) + "_" + (casterGO.transform.position);
     }
-    private bool IsEdgeTile(Vector3Int tilePos)
+    private bool IsEdgeTile(Vector3 tilePos)
     {
-        Vector3Int V2diag = new Vector3Int(1, 1, 0);
-        Vector3Int V2up = new Vector3Int(0, 1, 0);
-        Vector3Int V2right = new Vector3Int(1, 0, 0);
+        // Debug.Log("Is edge tile check");
+        Vector3 V2diag = (Vector3.Scale(new Vector3(1, 1, 0), Tilemap.cellSize));
+        Vector3 V2up = (Vector3.Scale(new Vector3(0, 1, 0), Tilemap.cellSize));
+        Vector3 V2right = (Vector3.Scale(new Vector3(1, 0, 0), Tilemap.cellSize));
 
         if (
-            !Tilemap.HasTile(V2right + tilePos) ||
-            !Tilemap.HasTile(-V2right + tilePos) ||
-            !Tilemap.HasTile(V2up + tilePos) ||
-            !Tilemap.HasTile(-V2up + tilePos) ||
-            !Tilemap.HasTile(V2diag + tilePos) ||
-            !Tilemap.HasTile(-V2diag + tilePos) ||
-            !Tilemap.HasTile(V2diag * -V2up + tilePos) ||
-            !Tilemap.HasTile(V2diag * -V2right + tilePos)
+            !filledTiles.Contains(V2right + tilePos) ||
+            !filledTiles.Contains(-V2right + tilePos) ||
+            !filledTiles.Contains(V2up + tilePos) ||
+            !filledTiles.Contains(-V2up + tilePos) ||
+            !filledTiles.Contains(V2diag + tilePos) ||
+            !filledTiles.Contains(-V2diag + tilePos) ||
+            !filledTiles.Contains(Vector3.Scale(V2diag,-V2up) + tilePos) ||
+            !filledTiles.Contains(Vector3.Scale(V2diag, -V2right) + tilePos)
             )
         {
             return true;
         }
-        else return false;
+         return false;
     }
     private Vector3Int ConvertV3toV3Int(Vector3 vector3)
     {
