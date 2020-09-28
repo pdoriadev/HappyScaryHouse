@@ -60,6 +60,7 @@ public class TilemapShadows : MonoBehaviour
                 SpriteRenderer casterSR = casterGO.GetComponent<SpriteRenderer>();
                 casterSR.sortingLayerID = TilemapRenderer.sortingLayerID;
                 
+                // Add all sorting layers below the caster's to its target layers.
                 List<int> targetLayers = new List<int>();
                 bool isAbove = true;
                 for (int j = SortingLayer.layers.Length - 1; j >= 0; j--)
@@ -77,9 +78,7 @@ public class TilemapShadows : MonoBehaviour
                     }
                 }
 
-                // #CHECK
-                // May get overwritten by shadowcaster editor scripts. ShadowCaster2DEditor.cs
-                caster.SetTargetLayers(targetLayers.ToArray());
+
 
                 ShadowCasters.Add(casterGO);
                 NameShadowCaster(ref casterGO, casterSR.sortingLayerName);
