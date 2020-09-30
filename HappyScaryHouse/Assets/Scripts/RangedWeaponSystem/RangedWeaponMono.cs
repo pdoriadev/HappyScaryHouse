@@ -14,6 +14,7 @@ public class RangedWeaponMono : MonoBehaviour
     public GameObject bulletPrefab => BulletPrefab;
     [SerializeField]
     private float FireRate = default;   
+    public float fireRate => FireRate;
     [SerializeField]
     private bool IsAutomatic = true;
     public bool isAutomatic => IsAutomatic;
@@ -30,29 +31,39 @@ public class RangedWeaponMono : MonoBehaviour
     private LayerMask SightLayers;
     private Vector3 ShotDir;
     public Vector3 shotDir => ShotDir;
-    private bool CanShootAtTarget = false;
-    public bool readyForShootInput => CanShootAtTarget;
+    private bool ReadyForShootInput = false;
+    public bool readyForShootInput => ReadyForShootInput;
+    private bool IsFirstShot = false;
+    public bool isFirstShot => IsFirstShot;
     private BulletMono BulletMono = null;
     public BulletMono bulletMono => BulletMono;
     private Transform TargetTrans;
     private Coroutine ShootingCo;
     #endregion
 
-    public void RequestShooting()
+    public bool RequestShooting()
     {
         if (CanSeeTarget())
         {    
             if (!IsAutomatic)
             {
                 Shoot();
+                IsFirstShot = true;
+                return true;
             }
             else if (IsShooting == false)
             {
                 ShootingCo = StartCoroutine(CoShoot());
+                IsFirstShot = true;
+                return true;
             }
             else 
+            {
                 Debug.LogWarning("Weapon already shooting");
+                return false;
+            }
         }
+        return false;
     }
 
     public void CancelShooting()
@@ -84,6 +95,7 @@ public class RangedWeaponMono : MonoBehaviour
     
     private bool IsShooting = false;
     public bool isShooting => IsShooting;
+    private float TimeTilShoot = 0;
     private IEnumerator CoShoot()
     {
         IsShooting = true;
@@ -91,6 +103,7 @@ public class RangedWeaponMono : MonoBehaviour
         while (IsShooting)
         {
             t -= Time.deltaTime;
+            TimeTilShoot = t;
             if (t <= 0)
             {
                 Shoot();
@@ -113,10 +126,13 @@ public class RangedWeaponMono : MonoBehaviour
         bMono.ChangeShotDir(shotDir);
         
         onShootEvent?.Invoke();
+
+        if (IsFirstShot)
+            IsFirstShot = false;
     }
     private void UpdateShotInfo()
     {
-        CanShootAtTarget = TargetTrans && IsShooting == false;
+        ReadyForShootInput = TargetTrans && IsShooting == false;
 
         if (!shootAtTarget)
         {
@@ -156,6 +172,10 @@ public class RangedWeaponMono : MonoBehaviour
         }
 
         return seesTarget;
+    }
+    public float GetShootTime()
+    {
+        return TimeTilShoot;
     }
     
     void OnTriggerEnter2D(Collider2D collider)

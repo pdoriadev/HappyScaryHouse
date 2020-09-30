@@ -9,17 +9,20 @@ using UnityEngine.Experimental.Rendering.Universal;
 
     // Remove previously generated shadowcaster gameobjects.
         // save instances into collection? 
+[ExecuteInEditMode]
 [RequireComponent(typeof(Tilemap))]
 [RequireComponent(typeof(TilemapRenderer))]
 public class TilemapShadows : MonoBehaviour
 {
     [SerializeField]
-    private GameObject ShadowCastersPrefab = default;
+    private Object ShadowCastersPrefab = default;
     [SerializeField]
     private List<GameObject> ShadowCasters = new List<GameObject>();
     public List<GameObject> shadowCasters => ShadowCasters;
     private Tilemap Tilemap = null;
+    public Tilemap tilemap => Tilemap;
     private TilemapRenderer TilemapRenderer = null;
+    public TilemapRenderer tilemapRenderer => TilemapRenderer;
 
     private List<Vector3> filledTiles = new List<Vector3>();
     public void GenerateShadowCasters()
@@ -54,8 +57,9 @@ public class TilemapShadows : MonoBehaviour
             if (IsEdgeTile((filledTiles[i])))
             {
                 n++;
-                GameObject casterGO = GameObject.Instantiate(ShadowCastersPrefab, filledTiles[i], Quaternion.identity);
+                GameObject casterGO = (GameObject)PrefabUtility.InstantiatePrefab(ShadowCastersPrefab);
                 casterGO.transform.localScale = Vector3.Scale(casterGO.transform.localScale, Tilemap.cellSize);
+                casterGO.transform.position = filledTiles[i];
                 casterGO.transform.SetParent(gameObject.transform);
 
                 ShadowCaster2D caster = casterGO.GetComponent<ShadowCaster2D>();
@@ -151,14 +155,14 @@ public class TilemapShadowsEditor : Editor
             TilemapShadows generator = (TilemapShadows)target;
 
             generator.GenerateShadowCasters();
+            Object [] casters = generator.shadowCasters.ToArray();
+            Undo.RecordObjects(casters, "GridShadowCastersGenerator name prefab instances");
 
-            // // as a hack to make the editor save the shadowcaster instances, we rename them now instead of when theyre generated.
-
-            // Undo.RecordObjects(casters, "GridShadowCastersGenerator name prefab instances");
-
-            // for (var i = 0; i < casters.Length; i++) {
-            //     casters[i].name += "_" + i.ToString();
-            // }
+            // set each caster's targetLayer
+            for (int i=0; i < generator.shadowCasters.Count; i++)
+            {
+                
+            }
         }
     }
 }

@@ -60,6 +60,9 @@ public class Chonker : MonoBehaviour, IInteractable
         FatCatAnimator = GetComponentInChildren<Animator>();
         RangedWeaponMono.onShootEvent += OnShoot;
         DamageableMono.onDeathMonoEvent += OnSubdued;
+
+        InitialScale = SR.transform.localScale;
+        ExpandedScale = new Vector3(InitialScale.x * 1.3f, InitialScale.y * 1.3f, 1f);
     }  
     private void OnDestroy()
     {
@@ -68,9 +71,39 @@ public class Chonker : MonoBehaviour, IInteractable
     }
 #endregion
 
+    private float CooldownTime = 0.4f;
+    private Vector3 DampVelocity = Vector3.zero;
+    // assigned values in awake
+    private Vector3 InitialScale;
+    private Vector3 ExpandedScale;
+    private void Update()
+    {
+        ExpansionAnimation();
+    }
     private void FixedUpdate()
     {
         ShootChecks();
+    }
+    private void ExpansionAnimation()
+    {
+        if (RangedWeaponMono.isShooting && OnShootCo == null)
+        {
+            if (RangedWeaponMono.isFirstShot)
+            {
+                SR.transform.localScale = Vector3.SmoothDamp
+                                (SR.transform.localScale, ExpandedScale, ref DampVelocity, RangedWeaponMono.fireRate);
+            }
+            else
+            {
+                SR.transform.localScale = Vector3.SmoothDamp
+                                (SR.transform.localScale, ExpandedScale, ref DampVelocity, RangedWeaponMono.fireRate - CooldownTime);
+            }       
+        }
+        else if (OnShootCo != null || SR.transform.localScale != InitialScale)
+        {
+            SR.transform.localScale = Vector3.SmoothDamp
+                                (SR.transform.localScale, InitialScale * 0.8f, ref DampVelocity, CooldownTime); 
+        }
     }
     private void ShootChecks()
     {
@@ -109,11 +142,14 @@ public class Chonker : MonoBehaviour, IInteractable
             {
                 FatCatAnimator.SetBool("IsShooting", false);
                 StopCoroutine(OnShootCo);
+                OnShootCo = null;
             }
             t += Time.deltaTime;
             yield return null;
         }
     }
+
+
 #endregion
 
 #region SUBDUE METHODS AND COROUTINE
