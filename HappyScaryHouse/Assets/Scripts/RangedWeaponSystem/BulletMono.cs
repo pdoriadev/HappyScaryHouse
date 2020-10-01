@@ -17,8 +17,9 @@ public class BulletMono : DamagerMono
         // instantiate boom effect here.
         gameObject.SetActive(false);
     }
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         RB2D = GetComponent<Rigidbody2D>();
     }
 

@@ -8,4 +8,9 @@ public abstract class DamagerMono : MonoBehaviour
     protected DamagerSO DamagerSO;
     public DamagerSO damagerSO => DamagerSO;
     public abstract void Attack();
+    protected virtual void Awake()
+    {
+        if (!DamagerSO)
+            Debug.LogError("Missing DamagerSO on DamagerMono");
+    }
 }

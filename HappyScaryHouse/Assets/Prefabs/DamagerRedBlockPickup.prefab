@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2221657464585816648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: -1.08, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6479469565429700420}
@@ -68,41 +68,50 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 660046911
+  m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Time: 0.2
+  m_Time: 0.4
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.8
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: -1.5797436
-        outSlope: -1.5797436
+        inSlope: -1.0531628
+        outSlope: -1.0531628
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.10047846
       - serializedVersion: 3
+        time: 0.5019491
+        value: 0.46350077
+        inSlope: -1.068832
+        outSlope: 0.24704477
+        tangentMode: 5
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.3611459
+      - serializedVersion: 3
         time: 1
         value: 0.026455024
-        inSlope: -0.67139053
-        outSlope: -0.67139053
+        inSlope: 0.2537946
+        outSlope: 0.2537946
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.13397133
+        inWeight: 0.29300836
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.45236677, b: 0.25943398, a: 1}
+      key1: {r: 1, g: 0.45236677, b: 0.25943398, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -117,9 +126,9 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime0: 6361
+      atime1: 42405
+      atime2: 64186
       atime3: 0
       atime4: 0
       atime5: 0
@@ -127,14 +136,14 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 90
-    numCapVertices: 0
+    numCapVertices: 30
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &6479469564951032459
@@ -162,8 +171,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6479469564951032459}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: -1.08, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6.2428, y: 6.2428, z: 6.2428}
   m_Children: []
   m_Father: {fileID: 6479469565429700420}
   m_RootOrder: 0
@@ -186,7 +195,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -204,15 +213,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 660046911
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5372a2b327e40e94da31dca69fae6595, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 0.53366524, b: 0.3726415, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -229,6 +238,8 @@ GameObject:
   - component: {fileID: 6479469565429700420}
   - component: {fileID: 6479469565429700418}
   - component: {fileID: 6479469565429700419}
+  - component: {fileID: 872479487}
+  - component: {fileID: 872479489}
   m_Layer: 0
   m_Name: DamagerRedBlockPickup
   m_TagString: Untagged
@@ -266,7 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThingToPickupPrefab: {fileID: 3682301349974545390, guid: 5b3caa3f1bdab254eba964dfa1e958d3,
     type: 3}
-  Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   SR: {fileID: 6479469564951032457}
   Pool: {fileID: 11400000, guid: 32d08ecdb444b884784baec8ec0fc390, type: 2}
 --- !u!58 &6479469565429700419
@@ -285,3 +296,62 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &872479487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6479469565429700421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b280f43a8c460d40b394cbbee608089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDist: 2
+  smoothTime: 1
+  PatrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &872479489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6479469565429700421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 0
+  m_BlendStyleIndex: 1
+  m_FalloffIntensity: 0.32
+  m_Color: {r: 1, g: 0.43305224, b: 0.41176474, a: 1}
+  m_Intensity: 2
+  m_LightVolumeOpacity: 0.01
+  m_ApplyToSortingLayers: 00000000c7f75a193f845727e9e11e683da4a804
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 1
+  m_ShadowVolumeIntensity: 0.503
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 15
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 2.05
+  m_ShapeLightFalloffSize: 3.18
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}

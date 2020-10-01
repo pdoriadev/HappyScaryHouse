@@ -5,8 +5,9 @@ using UnityEngine;
 public class TrapMono : DamagerMono
 {
     private SpriteRenderer SR;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SR = GetComponent<SpriteRenderer>();
         SR.sprite = DamagerSO.sprite;
     }

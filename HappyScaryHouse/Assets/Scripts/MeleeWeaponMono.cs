@@ -16,17 +16,21 @@ public class MeleeWeaponMono : DamagerMono
 
         // #TODO - Play animation for attack
     }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         DamageableMono damageable = collider.GetComponent<DamageableMono>();
-        if (damageable && damageable.damSO.faction != this.DamagerSO.faction)
+        if (damageable != null)
         {
-            if (!DamageablesInRange.Contains(damageable))
+            if (damageable.damSO.faction != this.DamagerSO.faction)
             {
-                DamageablesInRange.Add(damageable);
+                if (!DamageablesInRange.Contains(damageable))
+                {
+                    DamageablesInRange.Add(damageable);
+                }
+                else Debug.LogError("Attempted to add damageable " + damageable.gameObject.name 
+                    + " to damageable list, but it already exists.");
             }
-            else Debug.LogError("Attempted to add damageable " + damageable.gameObject.name 
-                + " to damageable list, but it already exists.");
         }
     }
     void OnTriggerExit2D(Collider2D collider)
